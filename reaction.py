@@ -1,1 +1,24 @@
-from gpiozero import LED, Button<br/>from time import sleep<br/>from random import uniform<br/><br/># 初始化硬件<br/>led = LED(4)<br/>left_button = Button(14)<br/>right_button = Button(15)<br/><br/># 输入玩家姓名<br/>left_name = input("左玩家姓名：")<br/>right_name = input("右玩家姓名：")<br/><br/>print("游戏开始！请等待LED熄灭后快速按键！")<br/><br/># 亮灯并随机延时<br/>led.on()<br/>sleep(uniform(5, 10))  # 随机等待5-10秒<br/>led.off()<br/><br/># 获胜判断逻辑<br/>def pressed(button):<br/>    if button.pin.number == 14:<br/>        print(f"\n{left_name} 获胜！")<br/>    else:<br/>        print(f"\n{right_name} 获胜！")<br/>    exit()<br/><br/># 绑定按键事件<br/>left_button.when_pressed = pressed<br/>right_button.when_pressed = pressed<br/><br/># 保持程序运行<br/>while True:<br/>    sleep(1)
+from gpiozero import LED, Button
+from time import sleep
+from random import uniform
+led = LED(4)
+left_button = Button(14)
+right_button = Button(15)
+left_name = input("left player name is：")
+right_name = input("right player name is：")
+
+led.on()
+sleep(uniform(5, 10))
+led.off()
+
+
+def pressed(button):
+    if button.pin.number == 14:
+      print(f"\n{left_name} 获胜！")
+    else:
+      print(f"\n{right_name} 获胜！")
+    exit()
+left_button.when_pressed = pressed
+right_button.when_pressed = pressed
+while True:
+    sleep(1)
